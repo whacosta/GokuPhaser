@@ -2,10 +2,10 @@
 <widget id="com.phonegap.helloworld" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>phasergame</name>
     <description>
-        A blank PhoneGap app.
+        Este juego fue creado como parte del curso de creación de aplicaciones moviles en Miríadx de Telefonica.
     </description>
-    <author email="support@phonegap.com" href="http://phonegap.com">
-        PhoneGap Team
+    <author email="whacosta@fiec.espol.ecu.ec" href="https://github.com/whacosta/GokuPhaser">
+        Wilmer Acosta
     </author>
     <content src="index.html" />
     <access origin="*" />
