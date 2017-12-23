@@ -97,6 +97,14 @@ var app={
 		if (puntuacion == 0) {
 			var r = confirm("Perdiste!");
 			if (r == true) {
+			    objeto.body.x = app.inicioXO();
+			    objeto.body.y = -72;
+
+			    objeto2.body.x = app.inicioXO();
+			    objeto2.body.y = -72;
+
+			    objeto3.body.x = app.inicioXO();
+			    objeto3.body.y = -72;
 			    setTimeout(app.recomienza, 1000);
 			} else {
 			    navigator.app.exitApp();
