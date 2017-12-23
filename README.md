@@ -1,10 +1,11 @@
-# A Blank PhoneGap App
+# PhoneGap App 
+	$ Este juego fue creado como parte del curso de creación de aplicaciones moviles en Miríadx de Telefonica
 
 ## Usage
 
 ### PhoneGap CLI
 
-    $ phonegap create my-app --template blank
+    $ phonegap create GokuPhaser
 
 ### Desktop
 
