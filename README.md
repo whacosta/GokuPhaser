@@ -4,6 +4,9 @@
 
 ## Usage
 
+### Ejecutable del juego
+	Se puede ejecutar en Andorid y en Windows Phone https://build.phonegap.com/apps/2941657/share
+
 ### PhoneGap CLI
 
     $ phonegap create GokuPhaser
