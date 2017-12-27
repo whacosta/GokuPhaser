@@ -1,4 +1,18 @@
 var app={
+
+	model: {
+    	"score": [{"user": "ID_USER", "best": "BEST_SCORED"}]
+  	},
+
+	firebaseConfig: {
+		apiKey: "AIzaSyAaRj0xU4-NEY9UsowodxJd1ieycBlBKtA",
+        authDomain: "gokuphaser.firebaseapp.com",
+        databaseURL: "https://gokuphaser.firebaseio.com",
+        projectId: "gokuphaser",
+        storageBucket: "gokuphaser.appspot.com",
+        messagingSenderId: "248921705398"
+	},
+
 	inicio: function(){
 		DIAMETRO_GOKU = 59;
 		DIAMETRO_OBJETO = 128;
@@ -13,7 +27,38 @@ var app={
 
 		app.vigilaSensores();
 		app.iniciaJuego();
+		app.iniciaFirebase();
 		
+	},
+
+	iniciaFirebase: function(){
+		firebase.initializeApp(this.firebaseConfig);
+		app.authFirebase();
+	},
+
+	authFirebase: function(){
+		firebase.auth().signInAnonymously().catch(function(error) {
+		  // Handle Errors here.
+		  var errorCode = error.code;
+		  var errorMessage = error.message;
+		  console.log("Error code: "+errorCode+" Message: "+errorMessage);
+		  // ...
+		});
+	},
+
+	getScoreFirebase: function(){
+		firebase.auth().onAuthStateChanged(function(user) {
+		if (user) {
+			// User is signed in.
+			var isAnonymous = user.isAnonymous;
+			var uid = user.uid;
+			// ...
+		} else {
+			// User is signed out.
+			// ...
+		}
+			// ...
+		});
 	},
 
 	iniciaJuego: function(){
@@ -53,7 +98,7 @@ var app={
 			death = game.add.audio('death');
 			goku.body.collideWorldBounds = true;
 			//goku.body.onWorldBounds = new Phaser.Signal();
-			//goku.body.onWorldBounds.add(app.decrementaPuntuacion, this);
+			//goku.body.onWorldBounds.add(app.gameOver, this);
 		}
 
 		function update(){
@@ -65,7 +110,7 @@ var app={
 			objeto.body.onWorldBounds = new Phaser.Signal();
 			objeto.body.onWorldBounds.add(app.incrementaPuntuacion, this);
 
-			game.physics.arcade.overlap(goku,objeto, app.decrementaPuntuacion, null, this);
+			game.physics.arcade.overlap(goku,objeto, app.gameOver, null, this);
 
 			if(puntuacion >10){
 				objeto2.body.gravity.y = (60 + dificultad );
@@ -74,7 +119,7 @@ var app={
 				objeto2.body.onWorldBounds.add(app.incrementaPuntuacion, this);
 			}
 
-			game.physics.arcade.overlap(goku,objeto2, app.decrementaPuntuacion, null, this);
+			game.physics.arcade.overlap(goku,objeto2, app.gameOver, null, this);
 
 			if(puntuacion > 30){
 				objeto3.body.gravity.y = (60 + dificultad );
@@ -83,34 +128,64 @@ var app={
 				objeto3.body.onWorldBounds.add(app.incrementaPuntuacion, this);
 			}
 
-			game.physics.arcade.overlap(goku,objeto3, app.decrementaPuntuacion, null, this);
+			game.physics.arcade.overlap(goku,objeto3, app.gameOver, null, this);
 		}
 
 		var estados = { preload: preload, create: create, update: update };
 		var game = new Phaser.Game(ancho, alto, Phaser.CANVAS,'phaser', estados);
 	},
 
-	decrementaPuntuacion: function(){
-		puntuacion = 0;
-		scoreText.text = puntuacion;
-		death.play();
-		if (puntuacion == 0) {
-			var r = confirm("Perdiste!");
-			if (r == true) {
-			    objeto.body.x = app.inicioXO();
-			    objeto.body.y = -72;
+	gameOver: function(){
+		firebase.auth().onAuthStateChanged(function(user) {
+			if (user) {
+				// User is signed in.
+				var isAnonymous = user.isAnonymous;
+				var uid = user.uid;
+				var r = confirm("Perdiste! \n Tu Score: "+puntuacion+" \n Presiona Ok para volver a Jugar, Cancela para salir");
+				if (r == true) {
+					app.construirRespaldo(uid,puntuacion);
+					app.salvarFirebase();
 
-			    objeto2.body.x = app.inicioXO();
-			    objeto2.body.y = -72;
+					objeto.body.x = app.inicioXO();
+					objeto.body.y = -72;
 
-			    objeto3.body.x = app.inicioXO();
-			    objeto3.body.y = -72;
-			    setTimeout(app.recomienza, 1000);
+					objeto2.body.x = app.inicioXO();
+					objeto2.body.y = -72;
+
+					objeto3.body.x = app.inicioXO();
+					objeto3.body.y = -72;
+				    setTimeout(app.recomienza, 1000);
+				} else {
+				    navigator.app.exitApp();
+				}
+				// ...
 			} else {
-			    navigator.app.exitApp();
+			// User is signed out.
+				console.log("NO LOGIN");
+			// ...
 			}
-		}
+			// ...
+		});
+		death.play();
 	},
+
+	construirRespaldo: function(user,puntos) {
+		var scored = app.model.score;
+		score.push({"user": user , "best": puntos });
+		 console.log("Dato construir Respaldo listo");
+	},
+
+  	salvarFirebase: function() {
+		var ref = firebase.storage().ref('model.json');
+		ref.putString(JSON.stringify(app.model));
+		 console.log("Firebase Esta hecho");
+	},
+
+	conectividad: function(){
+		return navigator.connection.type==='wifi';
+	},
+	
+
 
 	incrementaPuntuacion: function(){
 		puntuacion = puntuacion+1;
