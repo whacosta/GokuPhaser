@@ -144,7 +144,7 @@ var app={
 				var r = confirm("Perdiste! \n Tu Score: "+puntuacion+" \n Presiona Ok para volver a Jugar, Cancela para salir");
 				if (r == true) {
 					app.construirRespaldo(uid,puntuacion);
-					app.salvarFirebase();
+					app.grabarDatos();
 
 					objeto.body.x = app.inicioXO();
 					objeto.body.y = -72;
@@ -175,17 +175,67 @@ var app={
 		 console.log("Dato construir Respaldo listo");
 	},
 
+	grabarDatos: function() {
+   		window.resolveLocalFileSystemURL(cordova.file.externalApplicationStorageDirectory, this.gotFS, this.fail);
+  	},
+
+	gotFS: function(fileSystem) {
+    	fileSystem.getFile("files/"+"model.json", {create: true, exclusive: false}, app.gotFileEntry, app.fail);
+  	},
+
+	gotFileEntry: function(fileEntry) {
+	    fileEntry.createWriter(app.gotFileWriter, app.fail);
+  	},
+
+	gotFileWriter: function(writer) {
+		writer.onwriteend = function(evt) {
+		console.log("datos grabados en externalApplicationStorageDirectory");
+		if(app.conectividad()) {
+			app.salvarFirebase();
+			}
+		};
+		writer.write(JSON.stringify(app.model));
+	},
+
   	salvarFirebase: function() {
 		var ref = firebase.storage().ref('model.json');
 		ref.putString(JSON.stringify(app.model));
-		 console.log("Firebase Esta hecho");
+		console.log("Firebase Esta hecho");
 	},
 
 	conectividad: function(){
 		return navigator.connection.type==='wifi';
 	},
 	
+	leerDatos: function() {
+   		window.resolveLocalFileSystemURL(cordova.file.externalApplicationStorageDirectory, this.obtenerFS, this.fail);
+	},
 
+	obtenerFS: function(fileSystem) {
+    	fileSystem.getFile("files/"+"model.json", null, app.obtenerFileEntry, app.noFile);
+  	},
+
+	obtenerFileEntry: function(fileEntry) {
+    	fileEntry.file(app.leerFile, app.fail);
+  	},
+
+	leerFile: function(file) {
+		var reader = new FileReader();
+		reader.onloadend = function(evt) {
+			var data = evt.target.result;
+			app.model = JSON.parse(data);
+			app.inicio();
+		};
+		reader.readAsText(file);
+	},
+
+	noFile: function(error) {
+		app.inicio();
+	},
+
+	fail: function(error) {
+		console.log(error.code);
+	},
 
 	incrementaPuntuacion: function(){
 		puntuacion = puntuacion+1;
