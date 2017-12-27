@@ -46,21 +46,6 @@ var app={
 		});
 	},
 
-	getScoreFirebase: function(){
-		firebase.auth().onAuthStateChanged(function(user) {
-		if (user) {
-			// User is signed in.
-			var isAnonymous = user.isAnonymous;
-			var uid = user.uid;
-			// ...
-		} else {
-			// User is signed out.
-			// ...
-		}
-			// ...
-		});
-	},
-
 	iniciaJuego: function(){
 		function preload(){
 			//game.stage.backgroundColor='#f27d0c';
@@ -136,105 +121,54 @@ var app={
 	},
 
 	gameOver: function(){
-		firebase.auth().onAuthStateChanged(function(user) {
-			if (user) {
-				// User is signed in.
-				var isAnonymous = user.isAnonymous;
-				var uid = user.uid;
-				var r = confirm("Perdiste! \n Tu Score: "+puntuacion+" \n Presiona Ok para volver a Jugar, Cancela para salir");
-				if (r == true) {
-					app.construirRespaldo(uid,puntuacion);
-					app.grabarDatos();
-
-					objeto.body.x = app.inicioXO();
-					objeto.body.y = -72;
-
-					objeto2.body.x = app.inicioXO();
-					objeto2.body.y = -72;
-
-					objeto3.body.x = app.inicioXO();
-					objeto3.body.y = -72;
-				    setTimeout(app.recomienza, 1000);
-				} else {
-				    navigator.app.exitApp();
-				}
-				// ...
-			} else {
-			// User is signed out.
-				console.log("NO LOGIN");
-			// ...
-			}
-			// ...
-		});
 		death.play();
+		var r = confirm("Perdiste! \n Tu Score: "+puntuacion+" \n Presiona Ok para volver a Jugar, Cancela para salir");
+		if (r == true) {
+			objeto.body.x = app.inicioXO();
+			objeto.body.y = -72;
+
+			objeto2.body.x = app.inicioXO();
+			objeto2.body.y = -72;
+
+			objeto3.body.x = app.inicioXO();
+			objeto3.body.y = -72;
+			
+			var sc = puntuacion;
+			setTimeout(app.recomienza, 1000);
+			console.log("#############################RESTORE#####################################");
+			firebase.auth().onAuthStateChanged(function(user) {
+				if (user) {
+					// User is signed in.
+					var isAnonymous = user.isAnonymous;
+					var uid = user.uid;
+					console.log("PERDISTE Jugador:"+uid);
+					 app.construirRespaldo(uid,sc);
+			   		 app.subirFirebase();
+				} else {
+					console.log("NO LOGIN");
+				}
+			});
+		    
+		} else {
+		    navigator.app.exitApp();
+		}
 	},
 
 	construirRespaldo: function(user,puntos) {
 		var scored = app.model.score;
-		score.push({"user": user , "best": puntos });
-		 console.log("Dato construir Respaldo listo");
+		scored.push({"user": user , "best": puntos });
+		console.log("#############################Dato construir Respaldo listo "+  JSON.stringify(app.model));
 	},
 
-	grabarDatos: function() {
-   		window.resolveLocalFileSystemURL(cordova.file.externalApplicationStorageDirectory, this.gotFS, this.fail);
-  	},
-
-	gotFS: function(fileSystem) {
-    	fileSystem.getFile("files/"+"model.json", {create: true, exclusive: false}, app.gotFileEntry, app.fail);
-  	},
-
-	gotFileEntry: function(fileEntry) {
-	    fileEntry.createWriter(app.gotFileWriter, app.fail);
-  	},
-
-	gotFileWriter: function(writer) {
-		writer.onwriteend = function(evt) {
-		console.log("datos grabados en externalApplicationStorageDirectory");
-		if(app.conectividad()) {
-			app.salvarFirebase();
-			}
-		};
-		writer.write(JSON.stringify(app.model));
-	},
-
-  	salvarFirebase: function() {
+	
+  	subirFirebase: function() {
 		var ref = firebase.storage().ref('model.json');
 		ref.putString(JSON.stringify(app.model));
-		console.log("Firebase Esta hecho");
+		console.log("#############################Firebase Esta hecho");
 	},
 
 	conectividad: function(){
 		return navigator.connection.type==='wifi';
-	},
-	
-	leerDatos: function() {
-   		window.resolveLocalFileSystemURL(cordova.file.externalApplicationStorageDirectory, this.obtenerFS, this.fail);
-	},
-
-	obtenerFS: function(fileSystem) {
-    	fileSystem.getFile("files/"+"model.json", null, app.obtenerFileEntry, app.noFile);
-  	},
-
-	obtenerFileEntry: function(fileEntry) {
-    	fileEntry.file(app.leerFile, app.fail);
-  	},
-
-	leerFile: function(file) {
-		var reader = new FileReader();
-		reader.onloadend = function(evt) {
-			var data = evt.target.result;
-			app.model = JSON.parse(data);
-			app.inicio();
-		};
-		reader.readAsText(file);
-	},
-
-	noFile: function(error) {
-		app.inicio();
-	},
-
-	fail: function(error) {
-		console.log(error.code);
 	},
 
 	incrementaPuntuacion: function(){
@@ -301,6 +235,7 @@ var app={
 	},
 
 	recomienza: function(){
+		puntuacion=0;
 		document.location.reload(true);
 	},
 
