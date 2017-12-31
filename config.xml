@@ -12,7 +12,7 @@
     <preference name="phonegap-version" value="cli-7.0.1" />
     <plugin name="cordova-plugin-device-motion" source="npm" spec="~2.0.0"/>
     <plugin name="cordova-plugin-screen-orientation" source="npm" spec="~3.0.1"/>
-    <plugin name="cordova-plugin-firebase-authentication" source="npm" spec="~0.1.25" />
+    <plugin name="cordova-plugin-firebase-authentication" source="npm" spec="~0.12.1" />
     <plugin name="cordova-plugin-firebase-realtime-database" source="npm" spec="~0.1.25" />
     <content src="index.html" />
     <access origin="*" />
