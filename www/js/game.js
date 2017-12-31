@@ -67,7 +67,7 @@ gameState.prototype = {
 		firebase.auth().onAuthStateChanged(function(user) {
 			if (user) {
 				var uid = user.uid;
-				var getScored = window.FirebaseDatabasePlugin.ref('users/' + uid);
+				var getScored = firebase.database().ref('users/' + uid);
 				getScored.on('value', function(snapshot) {
 					bestScore = snapshot.val().scored;
 					scoreBest.text = "BS: "+bestScore;
