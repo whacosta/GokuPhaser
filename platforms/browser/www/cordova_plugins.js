@@ -552,6 +552,14 @@ module.exports = [
         "clobbers": [
             "FirebasePlugin"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-android-permissions/www/permissions-dummy.js",
+        "id": "cordova-plugin-android-permissions.Permissions",
+        "pluginId": "cordova-plugin-android-permissions",
+        "clobbers": [
+            "cordova.plugins.permissions"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -560,7 +568,8 @@ module.exports.metadata =
     "cordova-plugin-file": "4.1.1",
     "cordova-plugin-compat": "1.0.0",
     "cordova-plugin-screen-orientation": "3.0.1",
-    "cordova-plugin-firebase": "0.1.25"
+    "cordova-plugin-firebase": "0.1.25",
+    "cordova-plugin-android-permissions": "1.0.0"
 }
 // BOTTOM OF METADATA
 });

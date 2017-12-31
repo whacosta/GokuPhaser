@@ -8,6 +8,9 @@
         Wilmer Acosta
     </author>
     <content src="index.html" />
+    <allow-navigation href="http://*/*" />
+    <allow-intent href="https://*/*" />
     <access origin="*" />
     <preference name="phonegap-version" value="cli-7.0.1" />
+    <preference name="Orientation" value="portrait" />
 </widget>

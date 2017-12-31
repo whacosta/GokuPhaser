@@ -14,10 +14,14 @@
     <author email="whacosta@fiec.espol.ecu.ec" href="https://github.com/whacosta/GokuPhaser">
         Wilmer Acosta
     </author>
+    <feature name="http://api.phonegap.com/1.0/network"/>
     <preference name="phonegap-version" value="cli-7.0.1" />
+    <plugin name="cordova-plugin-whitelist" source="npm" spec="~2.0.0"/>
     <plugin name="cordova-plugin-device-motion" source="npm" spec="~2.0.0"/>
     <plugin name="cordova-plugin-screen-orientation" source="npm" spec="~3.0.1"/>
-    
+    <preference name="Orientation" value="portrait" />
     <content src="index.html" />
+    <allow-navigation href="http://*/*" />
+    <allow-intent href="https://*/*" />
     <access origin="*" />
 </widget>
