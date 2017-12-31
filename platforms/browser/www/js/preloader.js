@@ -9,7 +9,9 @@ loadState.prototype = {
 		this.game.load.image('objeto','assets/objeto.png');
 		this.game.load.image('objeto2','assets/objeto2.png');
 		this.game.load.image('objeto3','assets/objeto3.png');
-		this.game.load.image('logo','assets/Goku-Phaser.png');
+		this.game.load.image('logo','assets/EsquivaTron.png');
+		this.game.load.image('play','assets/Play-Game.png');
+		this.game.load.image('scored','assets/Top-Scored.png');
 		this.game.load.audio('death', 'assets/player_death.wav');
 		this.game.load.audio('up', 'assets/pickup.wav');
 	},

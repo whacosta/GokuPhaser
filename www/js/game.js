@@ -4,7 +4,9 @@ gameState.prototype = {
 	create: function(){
 		this.vigilaSensores();
 		this.game.add.tileSprite(0, 0, ancho, alto, 'background');
-		scoreText = this.game.add.text(16,16, puntuacion, { fontSize: '100px', fill: '#757676'});
+		scoreText = this.game.add.text(16,16, "S: "+puntuacion, { fontSize: '40px', fill: '#757676'});
+		scoreBest = this.game.add.text(ancho -100 ,16, "BS: "+bestScore, { fontSize: '40px', fill: '#757676'});
+		
 			
 		objeto = this.game.add.sprite(this.inicioXO(), 0, 'objeto');
 		goku=this.game.add.sprite(this.inicioX(), alto, 'goku');
@@ -21,6 +23,8 @@ gameState.prototype = {
 		up = this.game.add.audio('up');
 		death = this.game.add.audio('death');
 		goku.body.collideWorldBounds = true;
+
+		this.mejorPuntuacion();
 	},
 
 	update: function(){
@@ -58,9 +62,25 @@ gameState.prototype = {
 		this.game.state.start('GameOver');
 	},
 
+	mejorPuntuacion: function(){
+		console.log("Buscando mejorPuntuacion");
+		firebase.auth().onAuthStateChanged(function(user) {
+			if (user) {
+				var uid = user.uid;
+				var getScored = firebase.database().ref('users/' + uid);
+				getScored.on('value', function(snapshot) {
+					bestScore = snapshot.val().scored;
+					scoreBest.text = "BS: "+bestScore;
+				});
+			}else{
+				console.log("NO LOGIN");
+			}
+		});
+	},
+
 	incrementaPuntuacion: function(){
 		puntuacion = puntuacion+1;
-		scoreText.text = puntuacion;
+		scoreText.text = "S: "+puntuacion;
 		up.play();
 
 		objeto.body.x = this.inicioXO();

@@ -14,6 +14,7 @@ bootState.prototype = {
 		velocidadX=0;
 		velocidadY=0;
 		puntuacion=1;
+		bestScore=0;
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 		
 		console.log("boot Hasta Aqui bien");
@@ -21,14 +22,6 @@ bootState.prototype = {
 
 	},
 
-	firebaseConfig: {
-		apiKey: "AIzaSyAaRj0xU4-NEY9UsowodxJd1ieycBlBKtA",
-    	authDomain: "gokuphaser.firebaseapp.com",
-    	databaseURL: "https://gokuphaser.firebaseio.com",
-    	projectId: "gokuphaser",
-    	storageBucket: "gokuphaser.appspot.com",
-    	messagingSenderId: "248921705398"
-	}
 }
 
 
