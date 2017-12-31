@@ -536,13 +536,22 @@ module.exports = [
         "merges": [
             "window.FileSystem"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-screen-orientation/www/screenorientation.js",
+        "id": "cordova-plugin-screen-orientation.screenorientation",
+        "pluginId": "cordova-plugin-screen-orientation",
+        "clobbers": [
+            "cordova.plugins.screenorientation"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
     "cordova-plugin-file": "4.1.1",
-    "cordova-plugin-compat": "1.0.0"
+    "cordova-plugin-compat": "1.0.0",
+    "cordova-plugin-screen-orientation": "3.0.1"
 }
 // BOTTOM OF METADATA
 });

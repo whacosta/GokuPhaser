@@ -16,9 +16,13 @@ menuState.prototype = {
 		playGame.scale.setTo(0.5, 0.5);
 		playGame.anchor.setTo(0.5,0.5);
 
-		scoreGame = this.game.add.button(ancho/2,alto/2 + 120,"scored",this.clickScored,this);
+		scoreGame = this.game.add.button(ancho/2,alto/2 + 40,"scored",this.clickScored,this);
 		scoreGame.scale.setTo(0.5, 0.5);
-		scoreGame.anchor.setTo(0.5,0.5);		
+		scoreGame.anchor.setTo(0.5,0.5);	
+
+		exitGame = this.game.add.button(ancho/2,alto/2 + 80,"quit",this.clickQuit,this);
+		exitGame.scale.setTo(0.5, 0.5);
+		exitGame.anchor.setTo(0.5,0.5);
 		
 	},
 	clickPlay: function(){
@@ -27,13 +31,18 @@ menuState.prototype = {
 	},
 
 	clickScored: function(){
-		console.log("clickScored");
+		this.game.state.add('Top', topState);
+		this.game.state.start('Top');
 	},
 
+	clickQuit: function(){
+		navigator.app.exitApp();
+	},
+	
 	iniciaFirebase: function(){
 		firebase.initializeApp(this.firebaseConfig);
 		this.authFirebase();
-	},
+	},	
 
 	authFirebase: function(){
 		firebase.auth().signInAnonymously().catch(function(error) {

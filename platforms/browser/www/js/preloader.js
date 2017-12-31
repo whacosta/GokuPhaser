@@ -12,6 +12,7 @@ loadState.prototype = {
 		this.game.load.image('logo','assets/EsquivaTron.png');
 		this.game.load.image('play','assets/Play-Game.png');
 		this.game.load.image('scored','assets/Top-Scored.png');
+		this.game.load.image('quit','assets/quit.png');		
 		this.game.load.audio('death', 'assets/player_death.wav');
 		this.game.load.audio('up', 'assets/pickup.wav');
 	},
@@ -21,4 +22,4 @@ loadState.prototype = {
 		this.game.state.start('MainMenu');        
 	},
 
-};
+}
