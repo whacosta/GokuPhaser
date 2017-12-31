@@ -544,6 +544,14 @@ module.exports = [
         "clobbers": [
             "cordova.plugins.screenorientation"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-firebase/www/firebase-browser.js",
+        "id": "cordova-plugin-firebase.FirebasePlugin",
+        "pluginId": "cordova-plugin-firebase",
+        "clobbers": [
+            "FirebasePlugin"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -551,7 +559,8 @@ module.exports.metadata =
 {
     "cordova-plugin-file": "4.1.1",
     "cordova-plugin-compat": "1.0.0",
-    "cordova-plugin-screen-orientation": "3.0.1"
+    "cordova-plugin-screen-orientation": "3.0.1",
+    "cordova-plugin-firebase": "0.1.25"
 }
 // BOTTOM OF METADATA
 });

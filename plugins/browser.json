@@ -9,6 +9,9 @@
     "installed_plugins": {
         "cordova-plugin-screen-orientation": {
             "PACKAGE_NAME": "com.whacosta.gokuphaser"
+        },
+        "cordova-plugin-firebase": {
+            "PACKAGE_NAME": "com.phonegap.gokuphaser"
         }
     },
     "dependent_plugins": {}

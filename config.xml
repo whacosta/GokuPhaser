@@ -2,7 +2,12 @@
 <widget id="com.phonegap.gokuphaser" version="2.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>GokuPhaser</name>
     
-	<!--<plugin spec="https://github.com/apache/cordova-plugin-device-motion.git" source="git" /> -->
+	<!--<plugin spec="https://github.com/apache/cordova-plugin-device-motion.git" source="git" />
+        <plugin name="cordova-plugin-firebase" source="npm" spec="~0.1.25" />
+    <platform name="android">
+        <resource-file src="google-services.json" target="google-services.json" />
+    </platform>
+     -->
     <description>
         Juego de esquivar objetos usando el acelerometro.
     </description>
@@ -12,7 +17,7 @@
     <preference name="phonegap-version" value="cli-7.0.1" />
     <plugin name="cordova-plugin-device-motion" source="npm" spec="~2.0.0"/>
     <plugin name="cordova-plugin-screen-orientation" source="npm" spec="~3.0.1"/>
-    <plugin name="cordova-plugin-firebase" source="npm" spec="~0.1.25" />
+    
     <content src="index.html" />
     <access origin="*" />
 </widget>

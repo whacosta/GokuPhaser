@@ -40,6 +40,13 @@ menuState.prototype = {
 	},
 	
 	iniciaFirebase: function(){
+		/*
+		firebase.getToken(function(token) {
+		    // save this server-side and use it to push notifications to this device
+		    console.log(token);
+		}, function(error) {
+		    console.error(error);
+		});*/
 		firebase.initializeApp(this.firebaseConfig);
 		this.authFirebase();
 	},	
