@@ -11,7 +11,7 @@
 
 	Cordova-Plugins:
 	<plugin name="cordova-plugin-device-motion" source="npm" spec="~2.0.0"/>
-    <plugin name="cordova-plugin-screen-orientation" source="npm" spec="~4.1.1"/>
+    <plugin name="cordova-plugin-screen-orientation" source="npm" spec="~3.0.1"/>
 
 	Phaser:
 	<script src="js/phaser.min.js"></script>
