@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "248921705398",
+    "firebase_url": "https://gokuphaser.firebaseio.com",
+    "project_id": "gokuphaser",
+    "storage_bucket": "gokuphaser.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:248921705398:android:6c23b9f35187d417",
+        "android_client_info": {
+          "package_name": "com.phonegap.gokuphaser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "248921705398-npajvojj8hreau4ehif4toocvlc3c5hq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPCy2ualrNDOVHae6xlVWx_VfjucAv1s4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

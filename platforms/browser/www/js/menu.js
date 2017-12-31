@@ -45,7 +45,7 @@ menuState.prototype = {
 	},	
 
 	authFirebase: function(){
-		firebase.auth().signInAnonymously().catch(function(error) {
+		cordova.plugins.firebase.auth().signInAnonymously().catch(function(error) {
 		  // Handle Errors here.
 		  var errorCode = error.code;
 		  var errorMessage = error.message;
