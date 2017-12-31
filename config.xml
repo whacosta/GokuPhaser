@@ -10,6 +10,7 @@
         Wilmer Acosta
     </author>
     <plugin name="cordova-plugin-device-motion" source="npm" spec="~2.0.0"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <plugin name="cordova-plugin-screen-orientation" source="npm" spec="~3.0.1"/>
     <content src="index.html" />
     <access origin="*" />
