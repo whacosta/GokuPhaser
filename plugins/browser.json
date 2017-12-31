@@ -15,6 +15,9 @@
         },
         "cordova-plugin-android-permissions": {
             "PACKAGE_NAME": "com.phonegap.gokuphaser"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.phonegap.gokuphaser"
         }
     },
     "dependent_plugins": {}
